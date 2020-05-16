@@ -16,22 +16,18 @@ public class LaserController : MonoBehaviour
     {
         if(!isRunning)
         {
-            Debug.Log("IF entered");
             isRunning = true;
-            Debug.Log("Entering corroutine");
             StartCoroutine(DisplayLaser(Laser));
         }
     }
 
     IEnumerator DisplayLaser(GameObject laser)
     {
-        Debug.Log("Running Corroutine");
         laser.gameObject.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         laser.gameObject.SetActive(false);
         yield return new WaitForSeconds(2.5f);
         laser.gameObject.SetActive(true);
         isRunning = false;
-        Debug.Log("Ending corroutine");
     }
 }
