@@ -5,8 +5,17 @@ using UnityEngine;
 public class PlayerMagnet : MonoBehaviour
 {
     public GameObject PlayerMgt;
+    public GameObject TargetMagnet;
     public int RaycastDistance;
     public LayerMask RaycastMask;
+
+    AreaEffector2D TargetEffector;
+
+    void Start()
+    {
+        TargetEffector = TargetMagnet.GetComponentInChildren<AreaEffector2D>();
+        TargetEffector.enabled = true;
+    }
 
     void Update()
     {
@@ -16,20 +25,17 @@ public class PlayerMagnet : MonoBehaviour
 
         if(Input.GetMouseButton(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            
-            if(Physics.Raycast( ray, out hit, RaycastDistance) )
-            {
-                Debug.Log("Clicking" + hit.transform.gameObject.name);
-            }
-
             if(CheckTarget())
             {
                 Debug.Log("Enable attractor");
+                TargetEffector.enabled = true;
             }
 
-            Debug.Log("Not clicking magnet");
+        }
+        else
+        {
+            Debug.Log("Disabling attractor");
+            TargetEffector.enabled = false;
         }
     }
 
@@ -41,11 +47,6 @@ public class PlayerMagnet : MonoBehaviour
         Vector2 Dir = MouseCoord - new Vector2(PlayerMgt.transform.position.x, PlayerMgt.transform.position.y);
 
         PlayerMgt.transform.right   = Dir;
-
-        // Vector2 Dir = Input.mousePosition - Camera.main.ScreenToWorldPoint(PlayerMgt.transform.position);;
-        // float Angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
-
-        // PlayerMgt.transform.up = Dir;
     }
 
     bool CheckTarget()
