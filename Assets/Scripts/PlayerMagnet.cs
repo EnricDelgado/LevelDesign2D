@@ -27,14 +27,12 @@ public class PlayerMagnet : MonoBehaviour
         {
             if(CheckTarget())
             {
-                Debug.Log("Enable attractor");
                 TargetEffector.enabled = true;
             }
 
         }
         else
         {
-            Debug.Log("Disabling attractor");
             TargetEffector.enabled = false;
         }
     }

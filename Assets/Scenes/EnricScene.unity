@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 43112057}
   m_Layer: 8
   m_Name: Floor (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 71393897}
   m_Layer: 8
   m_Name: Floor (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,6 +383,7 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 1472598394}
   m_CeilingCheck: {fileID: 813188695}
   m_CrouchDisableCollider: {fileID: 248996784}
+  m_Grounded: 0
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1090,7 +1091,7 @@ GameObject:
   - component: {fileID: 1472598395}
   m_Layer: 8
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1553,6 +1554,7 @@ MonoBehaviour:
   Door: {fileID: 1641348328}
   RotationSpeed: 10
   RotationFactor: -60
+  ClosingTime: 3
 --- !u!1 &1996330585
 GameObject:
   m_ObjectHideFlags: 0
