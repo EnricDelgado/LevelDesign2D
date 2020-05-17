@@ -15,7 +15,7 @@ public class MovableDoorController : MonoBehaviour
     {
         if(OpenDoor)
         {
-            Debug.Log("Opening Door");
+            //Debug.Log("Opening Door");
             Door.transform.rotation = Quaternion.Lerp(Door.transform.rotation, Quaternion.Euler(0, 0, RotationFactor), RotationSpeed * Time.deltaTime);
 
             StartCoroutine(CloseDoorRoutine(ClosingTime));

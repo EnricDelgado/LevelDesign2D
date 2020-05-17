@@ -8,6 +8,7 @@ public class PlayerMagnet : MonoBehaviour
     public GameObject TargetMagnet;
     public int RaycastDistance;
     public LayerMask RaycastMask;
+    public Lever lever;
 
     AreaEffector2D TargetEffector;
 
@@ -57,6 +58,13 @@ public class PlayerMagnet : MonoBehaviour
             if(hit.transform.gameObject.tag == "TargetMagnet")
             {
                 return true;
+            }
+
+            if (hit.transform.gameObject.GetComponent<Lever>())
+            {
+                Debug.Log("Lever");
+                lever = hit.transform.gameObject.GetComponent<Lever>();
+                lever.doorOpen = true;
             }
         }
         return false;
