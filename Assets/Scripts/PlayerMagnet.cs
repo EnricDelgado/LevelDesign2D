@@ -30,7 +30,6 @@ public class PlayerMagnet : MonoBehaviour
             {
                 TargetEffector.enabled = true;
             }
-            CheckLever();
         }
         else
         {
@@ -60,32 +59,21 @@ public class PlayerMagnet : MonoBehaviour
                 return true;
             }
 
-
-
-        }
-        return false;
-    }
-
-   void CheckLever()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, RaycastDistance, RaycastMask))
-        {
             if (hit.transform.gameObject.GetComponent<Lever>())
             {
-                Debug.Log("Lever");
                 lever = hit.transform.gameObject.GetComponent<Lever>();
 
                 if (Vector3.Distance(transform.position, lever.transform.position) < 5)
                 {
                     lever.doorOpen = true;
                 }
-                
+
             }
 
 
         }
+        return false;
     }
+
+
 }
