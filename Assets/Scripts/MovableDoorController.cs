@@ -4,41 +4,63 @@ using UnityEngine;
 
 public class MovableDoorController : MonoBehaviour
 {
-    public GameObject Door;
-    public float RotationSpeed = .3f;
-    public float RotationFactor = -60;
-    public float ClosingTime = 3f;
+    public int RaycastDistance;
+    public LayerMask RaycastMask;
 
-    bool OpenDoor = false, CloseDoor = false;
+    GameObject currentDoor;
+
+    private void Start() {
+        currentDoor = null;
+    }
 
     private void Update() 
     {
-        if(OpenDoor)
-        {
-            Debug.Log("Opening Door");
-            Door.transform.rotation = Quaternion.Lerp(Door.transform.rotation, Quaternion.Euler(0, 0, RotationFactor), RotationSpeed * Time.deltaTime);
 
-            StartCoroutine(CloseDoorRoutine(ClosingTime));
+        Vector2 MouseCoord = Input.mousePosition;
+        MouseCoord = Camera.main.ScreenToWorldPoint(MouseCoord);
+
+        if(Input.GetMouseButton(0))
+        {
+            Debug.Log("Got target: " + CheckTarget());
+
+            if(CheckTarget())
+            {
+                Debug.Log("Attach door");
+
+                if(currentDoor != null) currentDoor.transform.SetParent(this.gameObject.transform);
+            }
+
         }
-
-        if(CloseDoor)
+        else
         {
-            Door.transform.rotation = Quaternion.Lerp(Door.transform.rotation, Quaternion.Euler(0, 0, 0), RotationSpeed * Time.deltaTime);
-            CloseDoor = false;
+            if(currentDoor != null)
+            {
+                Debug.Log("Detach door");
+
+                currentDoor.transform.parent = null;
+                currentDoor = null;
+            }
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag == "Player")
-        {
-            OpenDoor = true;
-        }
-    }
-
-    IEnumerator CloseDoorRoutine(float Time)
+    bool CheckTarget()
     {
-        yield return new WaitForSeconds(Time);
-        OpenDoor = false;
-        CloseDoor = true;
+        Debug.Log("Entering CheckTarget");
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit, RaycastDistance))
+        {
+            Debug.Log("Raycast hitting: " + hit.transform.gameObject.name);
+
+            if(hit.transform.gameObject.tag == "MovableDoor")
+            {
+                Debug.Log("Door hitted");
+                currentDoor = hit.transform.gameObject;
+                return true;
+            }
+        }
+        return false;
     }
 }
