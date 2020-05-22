@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Patrol_TwoD_Bomb : MonoBehaviour
 {
-    Spawner_Boom_Enemies spawnerHerePls;
+    /*Spawner_Boom_Enemies spawnerHerePls;
     public float speed;
     float copySpeedValue;
     //GameObject mydoor;
@@ -358,7 +358,7 @@ public class Patrol_TwoD_Bomb : MonoBehaviour
             rb.AddForce(addNegativeForce, ForceMode2D.Impulse); // NEGATIVO
         }
        
-    }   
+    }   */
     
     
 }
