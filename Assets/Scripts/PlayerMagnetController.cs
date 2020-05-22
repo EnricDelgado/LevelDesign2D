@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMagnet : MonoBehaviour
+public class PlayerMagnetController : MonoBehaviour
 {
     public GameObject PlayerMgt;
     public GameObject TargetMagnet;
     public int RaycastDistance;
     public LayerMask RaycastMask;
-    public Lever lever;
 
     AreaEffector2D TargetEffector;
 
@@ -20,19 +19,22 @@ public class PlayerMagnet : MonoBehaviour
 
     void Update()
     {
-        FaceMouse(PlayerMgt);
         Vector2 MouseCoord = Input.mousePosition;
         MouseCoord = Camera.main.ScreenToWorldPoint(MouseCoord);
+        FaceMouse(PlayerMgt);
 
         if(Input.GetMouseButton(0))
         {
             if(CheckTarget())
             {
+                // Debug.Log("Enable attractor");
                 TargetEffector.enabled = true;
             }
+
         }
         else
         {
+            // Debug.Log("Disabling attractor");
             TargetEffector.enabled = false;
         }
     }
@@ -44,7 +46,7 @@ public class PlayerMagnet : MonoBehaviour
 
         Vector2 Dir = MouseCoord - new Vector2(PlayerMgt.transform.position.x, PlayerMgt.transform.position.y);
 
-        PlayerMgt.transform.right = Dir;
+        PlayerMgt.transform.right   = Dir;
     }
 
     bool CheckTarget()
@@ -58,22 +60,7 @@ public class PlayerMagnet : MonoBehaviour
             {
                 return true;
             }
-
-            if (hit.transform.gameObject.GetComponent<Lever>())
-            {
-                lever = hit.transform.gameObject.GetComponent<Lever>();
-
-                if (Vector3.Distance(transform.position, lever.transform.position) < 5)
-                {
-                    lever.doorOpen = true;
-                }
-
-            }
-
-
         }
         return false;
     }
-
-
 }
